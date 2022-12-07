@@ -1,13 +1,11 @@
 
 public class Main {
 public static void main(String args[]) {
-	/*
-	int[] test = new int[4];
-	test[1]= 0;
-	test = new int[5];
-	//System.out.println(test[1]);
-	*/
-	Graph g = new Graph();
+	
+	System.out.println("started");
+	Graph2 g = new Graph2();
 	g.loadAndSortIntoGrid();
+	Dijkstra d = new Dijkstra();
+	d.calc(0, g.end.length, g.adjacencyArray, g.offset);
 }
 }
