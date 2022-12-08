@@ -9,7 +9,7 @@ import java.util.Iterator;
 
 public class Graph2 {
 	int[] offset;// [node id] = offset for that node in adjacencyArray
-	ArrayList adjacencyArray;//target node followed by weight and array foreach node starts at offset
+	ArrayList<Integer> adjacencyArray;//target node followed by weight and array foreach node starts at offset
 	int[][] edges;
 	ArrayList<Shelf> Shelves = new ArrayList<Shelf>();
 	int[] end;
@@ -83,8 +83,8 @@ public class Graph2 {
 				}
 				putintoArray(numOfVerticies);
 				System.out.println("done");
-				//printresults();
-				
+				printresults();
+				printarray();
 			
 				//
 				
@@ -151,14 +151,23 @@ public class Graph2 {
 	void putintoArray(int numOfVerticies) {
 		ArrayList<Integer> temp = new ArrayList<Integer>();
 		for(int i = 0; i< numOfVerticies ;i++ ) {
-			for(int j = 0; j < end[i]; j++) {
-				offset[i] = temp.size();
+			offset[i] = temp.size();
+			for(int j = 0; j < end[i]; j++) {	
 				temp.add(edges[Shelves.get(j).nums[i]][0]);
 				temp.add(edges[Shelves.get(j).nums[i]][1]);
-				 
 			}
 		}
 		adjacencyArray = temp;
+	}
+	void printarray() {
+		for(int i = 0; i < offset.length; i++) {
+			System.out.print(i+":"+offset[i]+",");
+		}
+		System.out.println("");
+		for(int i = 0; i < adjacencyArray.size(); i++) {
+			System.out.print(adjacencyArray.get(i)+",");
+		}
+		System.out.println("");
 	}
 	
 	
