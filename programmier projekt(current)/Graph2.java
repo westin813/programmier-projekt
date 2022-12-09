@@ -83,8 +83,8 @@ public class Graph2 {
 				}
 				putintoArray(numOfVerticies);
 				System.out.println("done");
-				printresults();
-				printarray();
+				//printresults();
+				//printarray();
 			
 				//
 				
