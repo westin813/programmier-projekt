@@ -13,7 +13,9 @@ public class Graph2 {
 	int[][] edges;
 	ArrayList<Shelf> Shelves = new ArrayList<Shelf>();
 	int[] end;
-	void loadAndSortIntoGrid() {
+	double[]exactlongitude;
+	double[]exactlatitude;
+	void loadAndSortIntoGrid(String graphpath) {
 		// reading the file
 		// get the file
 		try {
@@ -21,7 +23,7 @@ public class Graph2 {
 			String realshit = "Mapfiles\\germany.fmi";
 			String realshi2 = "C:\\Users\\westi\\Downloads\\MV.fmi";
 			
-			File file = new File(toy);
+			File file = new File(graphpath);
 			if (file != null) {
 				// create a buffered reader instance to read the file
 				BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -39,6 +41,8 @@ public class Graph2 {
 				offset = new int[numOfVerticies];
 				end = new int[numOfVerticies];
 				edges = new int[numOfEdges][2];
+				exactlongitude = new double[numOfVerticies];
+				exactlatitude = new double[numOfVerticies];
 
 				System.out.println(numOfVerticies + "," + numOfEdges);
 
@@ -56,6 +60,8 @@ public class Graph2 {
 					// put numbers into exact position array
 					double latitude = Double.parseDouble((String) nums.subSequence(whiteSpaces[1], whiteSpaces[2]));
 					double longitude = Double.parseDouble((String) nums.subSequence(whiteSpaces[2], whiteSpaces[3]));
+					exactlongitude[i] = longitude;
+					exactlatitude[i]= latitude;
 
 					
 				}
@@ -168,6 +174,9 @@ public class Graph2 {
 			System.out.print(adjacencyArray.get(i)+",");
 		}
 		System.out.println("");
+	}
+	double[] getbounds() {
+		return null;
 	}
 	
 	

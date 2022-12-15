@@ -17,7 +17,8 @@ public class Benchmark {
 		System.out.println("Reading graph file and creating graph data structure (" + graphPath + ")");
 		long graphReadStart = System.currentTimeMillis();
 		// TODO: read graph here
-		
+		Graph2 g = new Graph2();
+		//g.loadAndSortIntoGrid(graphpath);
 		
 		long graphReadEnd = System.currentTimeMillis();
 		System.out.println("\tgraph read took " + (graphReadEnd - graphReadStart) + "ms");
