@@ -5,42 +5,49 @@ import java.util.ArrayList;
 public class Quadtree {
 	double[] bounds;
 	Box[] boxes;
-	ArrayList<Quadtree> children = null;
+	ArrayList<Quadtree> children = new ArrayList<Quadtree>();
 	ArrayList<Integer> nodes;
 	int index = 0;
 	
-	Quadtree(double[] bounds,ArrayList<Integer> nodes, double[] exactlon,double[] exactlat,boolean first){//dont for get to initiate nodes with number counting up till size before using quadtree constructor, as well as defining bounds of graph
+	Quadtree(double[] bounds,ArrayList<Integer> nodes, double[] exactlon,double[] exactlat,boolean first,int numOfNodes){//dont for get to initiate nodes with number counting up till size before using quadtree constructor, as well as defining bounds of graph
+		
 		if(first) {
-			for(int i = 0; i < nodes.size() ; i++) {
+			for(int i = 0; i < numOfNodes ; i++) {
 				nodes.add(i);
 			}
 		}
 		this.bounds = bounds;
-		
+		//System.out.println("you're fucked retard");
 		//divide shit into 4 boxes
 		//for first starter quadtree steal values of mionts with minlat minlon maxlat maxlon from Graph while loading
-		double halflon = (bounds[0] - bounds[2])/2;
-		double halflat = (bounds[1]-bounds[3])/2;
+		double halflon = (Math.abs(bounds[0] - bounds[2]))/2;
+		double halflat = (Math.abs(bounds[1]-bounds[3]))/2;
 		Box[] b = {
-			new Box(bounds[0],halflat,halflon,bounds[4]),
-			new Box(halflon,halflat,bounds[3],bounds[4]),
+			new Box(bounds[0],halflat,halflon,bounds[3]),
+			new Box(halflon,halflat,bounds[2],bounds[3]),
 			new Box(bounds[0],bounds[1],halflon,halflat),
-			new Box(halflon,bounds[1],bounds[3],halflat)	
+			new Box(halflon,bounds[1],bounds[2],halflat)	
 		} ;
 		//todo: put nodes into boxes 
-		for(Box box : b) {
+		for(int j = 0; j < 4;j++) {
+			System.out.println("Box "+j + "bounds");
+			b[j].printbounds();
 			for(int i =0 ; i < nodes.size();i++ ) {
-				if(inbounds(box.bounds,exactlon[nodes.get(i)],exactlat[nodes.get(i)])) {
+				if(inbounds(b[j].bounds,exactlon[nodes.get(i)],exactlat[nodes.get(i)])) {
+					
+					b[j].NodesInBox.add(nodes.get(i));
 					nodes.remove(i);
-					box.NodesInBox.add(nodes.get(i));
+					//System.out.println(" Box "+j);
+					b[j].printContents();
 				}
+				
 			}
 		}
 		boxes = b;
 		
 		for(int i = 0; i < 4;i++) {
 			if(thereismorethanonenodeinbox(boxes[i])) {
-				children.add(new Quadtree(boxes[i].bounds,boxes[i].NodesInBox,exactlon,exactlat,false));
+				children.add(new Quadtree(boxes[i].bounds,boxes[i].NodesInBox,exactlon,exactlat,false,0));
 			}
 		}
 		
@@ -57,9 +64,20 @@ public class Quadtree {
 			bounds = b;
 			NodesInBox = new ArrayList<Integer>();
 		}
+		void printContents() {
+			for(Integer i : NodesInBox) {
+				//System.out.println( "["+i);
+			}
+		}
+		void printbounds() {
+			for(int i = 0; i < 4;i++) {
+				System.out.println(bounds[i]+ ",");
+			}
+		}
 		
 	}
 	void find(double lon, double lat,double[] exactlon, double[] exactlat) {
+		//to do handel exception node is in multiple boxes at once
 		for(int i = 0; i < 4;i++) {
 			if(inbounds(boxes[i].bounds, lon, lat)) {
 				if(boxisempty(boxes[i])) {
