@@ -18,13 +18,14 @@ public class Benchmark {
 		long graphReadStart = System.currentTimeMillis();
 		// TODO: read graph here
 		Graph2 g = new Graph2();
-		//g.loadAndSortIntoGrid(graphpath);
+		g.loadAndSortIntoGrid(graphPath);
 		
 		long graphReadEnd = System.currentTimeMillis();
 		System.out.println("\tgraph read took " + (graphReadEnd - graphReadStart) + "ms");
 
 		System.out.println("Setting up closest node data structure...");
 		// TODO: set up closest node data structure here
+		Grid grid = new Grid(g.exactlongitude,g.exactlatitude,0, 40,30, 60);
 
 		System.out.println("Finding closest node to coordinates " + lon + " " + lat);
 		long nodeFindStart = System.currentTimeMillis();
@@ -56,6 +57,8 @@ public class Benchmark {
 
 		System.out.println("Computing one-to-all Dijkstra from node id " + sourceNodeId);
 		long oneToAllStart = System.currentTimeMillis();
+		Dijkstra2 d = new Dijkstra2();
+		d.doit(sourceNodeId,g.end.length,g.offset,g.adjacencyArray);
 		// TODO: run one-to-all Dijkstra here
 		long oneToAllEnd = System.currentTimeMillis();
 		System.out.println("\tone-to-all Dijkstra took " + (oneToAllEnd - oneToAllStart) + "ms");

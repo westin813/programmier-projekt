@@ -43,6 +43,7 @@ public class Dijkstra2 {
 				int v = adjarray.get(offset[u] + i);
 				int weightOfv = adjarray.get(offset[u] + i + 1) + tdistance[u];
 				
+				
 				// update vertex values
 				
 				if (MinHeap.contains(v)) {
@@ -59,6 +60,7 @@ public class Dijkstra2 {
 		//print results
 		for(int i = 0; i < tdistance.length; i++) {
 			System.out.println("vertex: "+i+" weight: "+tdistance[i] );
+			
 		}
 	}
 	
