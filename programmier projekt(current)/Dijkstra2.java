@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Dijkstra2 {
-	void doit(int root, int numOfVerticies, int[] offset, ArrayList<Integer> adjarray) {
+	void doit(int root, int numOfVerticies, int[] offset, ArrayList<Integer> adjarray,Grid grid) {
 		ArrayList<Integer> MinHeap = new ArrayList<Integer>();
 		// https://www.geeksforgeeks.org/dijkstras-algorithm-for-adjacency-list-representation-greedy-algo-8/
 		int[] tdistance = new int[numOfVerticies];
